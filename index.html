@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!--Style Sheet for the index.html page -->
+    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <title>Theraband Prescription</title>
+  </head>
+  <body>
+    <form method="post" class="TopForm">
+      <input type="number" id="excursion" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number"> Excursion (in)<br>
+      <input type="number" id="resistance" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number"> Resistance Desired (pounds)<br>
+    </form>
+    <br>
+    <br>
+    <button id="calculate">Calculate</button>
+    <button id="Reset" class="green">Reset</button>
+    <br>
+    <br>
+    <br>
+    <form class="Form">
+      <p class="big">Resting Length:</p>
+      <div class="bandHide" id="yellowBand">Yellow band: <input type="text" id="yellowNewRestingLength"> inches</div>
+      <div class="bandHide" id="redBand">Red band: <input type="text" id="redNewRestingLength"> inches</div>
+      <div class="bandHide" id="greenBand">Green band: <input type="text" id="greenNewRestingLength"> inches</div>
+      <div class="bandHide" id="blueBand">Blue band: <input type="text" id="blueNewRestingLength"> inches</div>
+      <div class="bandHide" id="blackBand">Black band: <input type="text" id="blackNewRestingLength"> inches</div>
+      <div class="bandHide" id="silverBand">Silver band: <input type="text" id="silverNewRestingLength"> inches</div>
+      <div class="bandHide" id="goldBand">Gold band: <input type="text" id="goldNewRestingLength"> inches</div>
+    </form>
+    <script>
+    function colorHide() {
+      $("#yellowBand").hide();
+      $("#redBand").hide();
+      $("#greenBand").hide();
+      $("#blueBand").hide();
+      $("#blackBand").hide();
+      $("#silverBand").hide();
+      $("#goldBand").hide();
+    }
+      $("button#calculate").on("click", function() {
+        colorHide();
+        var resistance = $("input#resistance").val();
+        var excursion = $("input#excursion").val();
+        var yellowRL = Math.round(10*(excursion * 0.0202 / (0.01*(resistance - 0.788))))/10;
+        var redRL = Math.round(10*(excursion * 0.0229 / (0.01*(resistance - 1.367))))/10;
+        var greenRL = Math.round(10*(excursion * 0.0325 / (0.01*(resistance - 1.525))))/10;
+        var blueRL = Math.round(10*(excursion * 0.0443 / (0.01*(resistance - 2.323))))/10;
+        var blackRL = Math.round(10*(excursion * 0.0587 / (0.01*(resistance - 3.223))))/10;
+        var silverRL = Math.round(10*(excursion * 0.0856 / (0.01*(resistance - 4.053))))/10;
+        var goldRL = Math.round(10*(excursion * 0.1350 / (0.01*(resistance - 6.882))))/10;
+
+      // Resting length output
+        $("input#yellowNewRestingLength").val(yellowRL);
+        $("input#redNewRestingLength").val(redRL);
+        $("input#greenNewRestingLength").val(greenRL);
+        $("input#blueNewRestingLength").val(blueRL);
+        $("input#blackNewRestingLength").val(blackRL);
+        $("input#silverNewRestingLength").val(silverRL);
+        $("input#goldNewRestingLength").val(goldRL);
+
+      // Shows only the bands in the correct ranges
+        function singleBandShow(x,y,z) {
+          if (x <= resistance && resistance <= y) {
+            $(z).show();
+          };
+        }
+        singleBandShow(2.9,5.8,"#yellowBand");
+        singleBandShow(3.9,7.0,"#redBand");
+        singleBandShow(5.0,9.6,"#greenBand");
+        singleBandShow(7.1,13.3,"#blueBand");
+        singleBandShow(9.7,17.6,"#blackBand");
+        singleBandShow(13.2,25.3,"#silverBand");
+        singleBandShow(21.6,40.1,"#goldBand");
+        if (resistance < 2.9 || 40.1 < resistance) {
+          alert("Out of range")
+        }
+      });
+      $("button#Reset").on("click", function () {
+        $('.Form').trigger("reset");
+        $('.TopForm').trigger("reset");
+        colorHide();
+      });
+    </script>
+  </body>
+</html>
