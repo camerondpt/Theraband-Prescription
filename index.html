@@ -30,7 +30,12 @@
       <div class="bandHide" id="blueBand">Blue band: <input type="text" id="blueNewRestingLength"> inches</div>
       <div class="bandHide" id="blackBand">Black band: <input type="text" id="blackNewRestingLength"> inches</div>
       <div class="bandHide" id="silverBand">Silver band: <input type="text" id="silverNewRestingLength"> inches</div>
+      <div class="bandHide" id="doubleSilverBand">2x Silver band: <input type="text" id="doubleSilverNewRestingLength"> inches</div>
+      <div class="bandHide" id="tripleSilverBand">3x Silver band: <input type="text" id="tripleSilverNewRestingLength"> inches</div>
       <div class="bandHide" id="goldBand">Gold band: <input type="text" id="goldNewRestingLength"> inches</div>
+      <div class="bandHide" id="DoubleGoldBand">2x Gold band: <input type="text" id="doubleGoldNewRestingLength"> inches</div>
+      <div class="bandHide" id="TripleGoldBand">3x Gold band: <input type="text" id="tripleGoldNewRestingLength"> inches</div>
+      <div class="bandHide" id="QuadGoldBand">4x Gold band: <input type="text" id="quadGoldNewRestingLength"> inches</div>
     </form>
     <script>
     function colorHide() {
@@ -40,7 +45,12 @@
       $("#blueBand").hide();
       $("#blackBand").hide();
       $("#silverBand").hide();
+      $("#doubleSilverBand").hide();
+      $("#tripleSilverBand").hide();
       $("#goldBand").hide();
+      $("#doubleGoldBand").hide();
+      $("#tripleGoldBand").hide();
+      $("#quadGoldBand").hide();
     }
       $("button#calculate").on("click", function() {
         colorHide();
@@ -52,7 +62,12 @@
         var blueRL = Math.round(10*(excursion * 0.0443 / (0.01*(resistance - 2.323))))/10;
         var blackRL = Math.round(10*(excursion * 0.0587 / (0.01*(resistance - 3.223))))/10;
         var silverRL = Math.round(10*(excursion * 0.0856 / (0.01*(resistance - 4.053))))/10;
+        var doubleSilverRL = Math.round(10*(excursion * 2 * 0.0856 / (0.01*(resistance - 4.053))))/10;
+        var tripleSilverRL = Math.round(10*(excursion * 3 * 0.0856 / (0.01*(resistance - 4.053))))/10;
         var goldRL = Math.round(10*(excursion * 0.1350 / (0.01*(resistance - 6.882))))/10;
+        var doubleGoldRL = Math.round(10*(excursion * 2 * 0.1350 / (0.01*(resistance - 6.882))))/10;
+        var tripleGoldRL = Math.round(10*(excursion * 3 * 0.1350 / (0.01*(resistance - 6.882))))/10;
+        var quadGoldRL = Math.round(10*(excursion * 4 * 0.1350 / (0.01*(resistance - 6.882))))/10;
 
       // Resting length output
         $("input#yellowNewRestingLength").val(yellowRL);
@@ -61,7 +76,12 @@
         $("input#blueNewRestingLength").val(blueRL);
         $("input#blackNewRestingLength").val(blackRL);
         $("input#silverNewRestingLength").val(silverRL);
+        $("input#doubleSilverNewRestingLength").val(silverRL);
+        $("input#tripleSilverNewRestingLength").val(silverRL);
         $("input#goldNewRestingLength").val(goldRL);
+        $("input#doubleGoldNewRestingLength").val(goldRL);
+        $("input#tripleGoldNewRestingLength").val(goldRL);
+        $("input#quadGoldNewRestingLength").val(goldRL);
 
       // Shows only the bands in the correct ranges
         function singleBandShow(x,y,z) {
@@ -75,8 +95,14 @@
         singleBandShow(7.1,13.3,"#blueBand");
         singleBandShow(9.7,17.6,"#blackBand");
         singleBandShow(13.2,25.3,"#silverBand");
+        singleBandShow(26.4,50.6,"#doubleSilverBand");
+        singleBandShow(39.6,75.9,"#tripleSilverBand");
         singleBandShow(21.6,40.1,"#goldBand");
-        if (resistance < 2.9 || 40.1 < resistance) {
+        singleBandShow(43.2,80.2,"#doubleGoldBand");
+        singleBandShow(64.8,120.3,"#tripleGoldBand");
+        singleBandShow(86.4,160.4,"#quadGoldBand");
+
+        if (resistance < 2.9 || 160.4 < resistance) {
           alert("Out of range")
         }
       });
